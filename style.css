@@ -1,5 +1,5 @@
 body {
-    background-color: #c7c4a9c7;
+    background-color: #c7c4a9; /* Fixed color hex typo */
     margin: 0;
     height: 100vh;
     width: 100vw;
@@ -9,352 +9,103 @@ body {
     overflow: hidden;
 }
 
-/* The Wrapper handles the "Zoom" to fit the screen */
+/* This is the wrapper that the Script will shrink */
 #scaler {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* We will set the scale via Javascript */
+    position: relative;
+    display: block;
     transform-origin: center center;
+    /* Do not set width/height here. Let the image define it. */
 }
 
-/* The Container automatically hugs the background image */
+/* The Container */
 .building-container {
     position: relative;
-    width: fit-content;  /* Auto-width */
-    height: fit-content; /* Auto-height */
+    width: fit-content;
+    height: fit-content;
 }
 
-/* The Background Image acts as the "Tent Pole" holding the container open */
+/* --- CRITICAL FIX --- */
+/* The Background Image must be its NATURAL size so positions align */
 #layer-54 {
-    display: block; /* Removes tiny gap at bottom of images */
-    position: relative; /* Sits naturally in the page */
+    display: block;
+    position: relative;
     z-index: 0;
     
-    /* Ensure it is its natural size, no stretching */
-    width: auto;
-    height: auto;
-    max-width: none;
-    max-height: none;
-}
-
-/* The Layers (Compressors/Tree) sit on top */
-.layer, .compressor {
-    position: absolute;
-    /* We let the script-generated coordinates place them */
-    /* We let the PNG file determine the size */
+    /* FORCE Natural Size */
     width: auto !important; 
     height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    
+    /* Remove the 100% width that was breaking mobile */
 }
 
-/* Tree is always on top */
+/* The Layers sit on top */
+.layer, .compressor {
+    position: absolute;
+    width: auto !important; 
+    height: auto !important;
+    max-width: none;
+    pointer-events: auto; /* Ensures touches work */
+}
+
+/* Tree is always on top but shouldn't block touches to items behind it */
 #layer-01 {
     z-index: 9999;
     pointer-events: none;
 }
 
-#layer-01 {
-    top: 83.33%;
-    left: 35.98%;
-    width: 64.02%;
-}
-#layer-02 {
-    top: 94.35%;
-    left: 24.64%;
-    width: 16.53%;
-}
-#layer-03 {
-    top: 92.87%;
-    left: 37.28%;
-    width: 15.88%;
-}
-#layer-04 {
-    top: 79.44%;
-    left: 29.98%;
-    width: 13.78%;
-}
-#layer-05 {
-    top: 78.33%;
-    left: 58.83%;
-    width: 15.07%;
-}
-#layer-06 {
-    top: 78.24%;
-    left: 86.06%;
-    width: 13.94%;
-}
-#layer-07 {
-    top: 67.59%;
-    left: 21.23%;
-    width: 13.13%;
-}
-#layer-08 {
-    top: 66.57%;
-    left: 80.71%;
-    width: 14.10%;
-}
-#layer-09 {
-    top: 58.06%;
-    left: 6.32%;
-    width: 12.16%;
-}
-#layer-10 {
-    top: 58.06%;
-    left: 26.42%;
-    width: 13.13%;
-}
-#layer-11 {
-    top: 57.13%;
-    left: 38.25%;
-    width: 12.32%;
-}
-#layer-12 {
-    top: 57.13%;
-    left: 58.18%;
-    width: 12.64%;
-}
-#layer-13 {
-    top: 56.94%;
-    left: 77.63%;
-    width: 13.29%;
-}
-#layer-14 {
-    top: 48.89%;
-    left: 24.64%;
-    width: 11.83%;
-}
-#layer-15 {
-    top: 47.87%;
-    left: 60.45%;
-    width: 12.32%;
-}
-#layer-16 {
-    top: 47.87%;
-    left: 73.26%;
-    width: 12.48%;
-}
-#layer-17 {
-    top: 42.69%;
-    left: 5.02%;
-    width: 10.05%;
-}
-#layer-18 {
-    top: 41.30%;
-    left: 28.20%;
-    width: 11.18%;
-}
-#layer-19 {
-    top: 40.46%;
-    left: 63.05%;
-    width: 11.35%;
-}
-#layer-20 {
-    top: 40.28%;
-    left: 82.33%;
-    width: 11.99%;
-}
-#layer-21 {
-    top: 33.89%;
-    left: 82.66%;
-    width: 11.67%;
-}
-#layer-22 {
-    top: 34.35%;
-    left: 70.99%;
-    width: 10.37%;
-}
-#layer-23 {
-    top: 33.98%;
-    left: 60.45%;
-    width: 11.99%;
-}
-#layer-24 {
-    top: 34.91%;
-    left: 31.93%;
-    width: 10.37%;
-}
-#layer-25 {
-    top: 33.89%;
-    left: 13.29%;
-    width: 11.18%;
-}
-#layer-26 {
-    top: 28.43%;
-    left: 69.69%;
-    width: 10.05%;
-}
-#layer-27 {
-    top: 27.96%;
-    left: 60.62%;
-    width: 10.70%;
-}
-#layer-28 {
-    top: 29.07%;
-    left: 27.71%;
-    width: 10.21%;
-}
-#layer-29 {
-    top: 29.81%;
-    left: 0.97%;
-    width: 10.53%;
-}
-#layer-30 {
-    top: 23.61%;
-    left: 86.55%;
-    width: 9.56%;
-}
-#layer-31 {
-    top: 22.69%;
-    left: 69.69%;
-    width: 10.21%;
-}
-#layer-32 {
-    top: 23.70%;
-    left: 29.98%;
-    width: 10.05%;
-}
-#layer-33 {
-    top: 23.89%;
-    left: 18.31%;
-    width: 10.53%;
-}
-#layer-34 {
-    top: 19.17%;
-    left: 6.00%;
-    width: 9.89%;
-}
-#layer-35 {
-    top: 18.61%;
-    left: 29.50%;
-    width: 10.37%;
-}
-#layer-36 {
-    top: 17.78%;
-    left: 54.46%;
-    width: 10.70%;
-}
-#layer-37 {
-    top: 17.69%;
-    left: 68.56%;
-    width: 10.05%;
-}
-#layer-38 {
-    top: 17.78%;
-    left: 76.82%;
-    width: 10.37%;
-}
-#layer-39 {
-    top: 9.26%;
-    left: 73.26%;
-    width: 9.89%;
-}
-#layer-40 {
-    top: 11.76%;
-    left: 38.74%;
-    width: 4.54%;
-}
-#layer-41 {
-    top: 10.56%;
-    left: 11.02%;
-    width: 9.24%;
-}
-#layer-42 {
-    top: 10.65%;
-    left: 1.30%;
-    width: 4.86%;
-}
-#layer-43 {
-    top: 7.13%;
-    left: 0.97%;
-    width: 8.91%;
-}
-#layer-44 {
-    top: 3.24%;
-    left: 92.22%;
-    width: 7.78%;
-}
-#layer-45 {
-    top: 2.87%;
-    left: 82.50%;
-    width: 9.56%;
-}
-#layer-46 {
-    top: 3.43%;
-    left: 77.80%;
-    width: 8.27%;
-}
-#layer-47 {
-    top: 2.78%;
-    left: 53.16%;
-    width: 9.40%;
-}
-#layer-48 {
-    top: 3.24%;
-    left: 43.11%;
-    width: 8.59%;
-}
-#layer-49 {
-    top: -0.09%;
-    left: 33.06%;
-    width: 8.10%;
-}
-#layer-50 {
-    top: 2.59%;
-    left: 13.94%;
-    width: 8.27%;
-}
-#layer-51 {
-    top: 0.46%;
-    left: 12.80%;
-    width: 8.75%;
-}
-#layer-52 {
-    top: 0.00%;
-    left: 58.18%;
-    width: 8.91%;
-}
-#layer-53 {
-    top: -0.28%;
-    left: 51.54%;
-    width: 8.59%;
-}
-#layer-54 {
-    top: -0.28%;
-    left: 0.00%;
-    width: 100.00%;
-}
-
-#Background {
-    top: 0.00%;
-    left: 0.00%;
-    width: 175.04%;
-}
-/* This box holds all the compressors */
-#calibration-group {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    
-    /* --- CONTROL KNOBS --- */
-    /* 1. Adjust Left/Right (Negative moves left, Positive moves right) */
-    --shift-x: -165%; 
-    
-    /* 2. Adjust Up/Down (Negative moves up, Positive moves down) */
-    --shift-y: -20%;  
-    
-    /* 3. Adjust Size (If they look too small, try 1.2 or 1.5) */
-    --scale: 1; 
-
-    /* Apply the values */
-    top: var(--shift-y);
-    left: var(--shift-x);
-    transform: scale(var(--scale));
-    transform-origin: top left; /* Scales from top-left corner */
-    
-    pointer-events: none; /* Let clicks pass through */
-}
-
-/* Re-enable mouse interaction for the actual images */
-#calibration-group img {
-    pointer-events: auto;
-}
+/* --- YOUR COORDINATES (Unchanged) --- */
+#layer-01 { top: 83.33%; left: 35.98%; width: 64.02%; }
+#layer-02 { top: 94.35%; left: 24.64%; width: 16.53%; }
+#layer-03 { top: 92.87%; left: 37.28%; width: 15.88%; }
+#layer-04 { top: 79.44%; left: 29.98%; width: 13.78%; }
+#layer-05 { top: 78.33%; left: 58.83%; width: 15.07%; }
+#layer-06 { top: 78.24%; left: 86.06%; width: 13.94%; }
+#layer-07 { top: 67.59%; left: 21.23%; width: 13.13%; }
+#layer-08 { top: 66.57%; left: 80.71%; width: 14.10%; }
+#layer-09 { top: 58.06%; left: 6.32%; width: 12.16%; }
+#layer-10 { top: 58.06%; left: 26.42%; width: 13.13%; }
+#layer-11 { top: 57.13%; left: 38.25%; width: 12.32%; }
+#layer-12 { top: 57.13%; left: 58.18%; width: 12.64%; }
+#layer-13 { top: 56.94%; left: 77.63%; width: 13.29%; }
+#layer-14 { top: 48.89%; left: 24.64%; width: 11.83%; }
+#layer-15 { top: 47.87%; left: 60.45%; width: 12.32%; }
+#layer-16 { top: 47.87%; left: 73.26%; width: 12.48%; }
+#layer-17 { top: 42.69%; left: 5.02%; width: 10.05%; }
+#layer-18 { top: 41.30%; left: 28.20%; width: 11.18%; }
+#layer-19 { top: 40.46%; left: 63.05%; width: 11.35%; }
+#layer-20 { top: 40.28%; left: 82.33%; width: 11.99%; }
+#layer-21 { top: 33.89%; left: 82.66%; width: 11.67%; }
+#layer-22 { top: 34.35%; left: 70.99%; width: 10.37%; }
+#layer-23 { top: 33.98%; left: 60.45%; width: 11.99%; }
+#layer-24 { top: 34.91%; left: 31.93%; width: 10.37%; }
+#layer-25 { top: 33.89%; left: 13.29%; width: 11.18%; }
+#layer-26 { top: 28.43%; left: 69.69%; width: 10.05%; }
+#layer-27 { top: 27.96%; left: 60.62%; width: 10.70%; }
+#layer-28 { top: 29.07%; left: 27.71%; width: 10.21%; }
+#layer-29 { top: 29.81%; left: 0.97%; width: 10.53%; }
+#layer-30 { top: 23.61%; left: 86.55%; width: 9.56%; }
+#layer-31 { top: 22.69%; left: 69.69%; width: 10.21%; }
+#layer-32 { top: 23.70%; left: 29.98%; width: 10.05%; }
+#layer-33 { top: 23.89%; left: 18.31%; width: 10.53%; }
+#layer-34 { top: 19.17%; left: 6.00%; width: 9.89%; }
+#layer-35 { top: 18.61%; left: 29.50%; width: 10.37%; }
+#layer-36 { top: 17.78%; left: 54.46%; width: 10.70%; }
+#layer-37 { top: 17.69%; left: 68.56%; width: 10.05%; }
+#layer-38 { top: 17.78%; left: 76.82%; width: 10.37%; }
+#layer-39 { top: 9.26%; left: 73.26%; width: 9.89%; }
+#layer-40 { top: 11.76%; left: 38.74%; width: 4.54%; }
+#layer-41 { top: 10.56%; left: 11.02%; width: 9.24%; }
+#layer-42 { top: 10.65%; left: 1.30%; width: 4.86%; }
+#layer-43 { top: 7.13%; left: 0.97%; width: 8.91%; }
+#layer-44 { top: 3.24%; left: 92.22%; width: 7.78%; }
+#layer-45 { top: 2.87%; left: 82.50%; width: 9.56%; }
+#layer-46 { top: 3.43%; left: 77.80%; width: 8.27%; }
+#layer-47 { top: 2.78%; left: 53.16%; width: 9.40%; }
+#layer-48 { top: 3.24%; left: 43.11%; width: 8.59%; }
+#layer-49 { top: -0.09%; left: 33.06%; width: 8.10%; }
+#layer-50 { top: 2.59%; left: 13.94%; width: 8.27%; }
+#layer-51 { top: 0.46%; left: 12.80%; width: 8.75%; }
+#layer-52 { top: 0.00%; left: 58.18%; width: 8.91%; }
+#layer-53 { top: -0.28%; left: 51.54%; width: 8.59%; }
